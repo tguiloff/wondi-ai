@@ -7,7 +7,7 @@
   <meta name="description" content="Wondi is a clinician-validated API that provides trajectory-based mental health risk scoring for AI companion platforms, built for millions of conversations.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -16,15 +16,12 @@
     }
 
     :root {
-      --cyber-blue: #4A53FF;
-      --cyber-blue-hover: #3840e6;
+      --black: #0A0A0A;
       --white: #FFFFFF;
-      --night-black: #0A0A0A;
-      --golden-hour: #E9C461;
-      --light-bg: #FAFAFA;
-      --border-color: #E5E7EB;
-      --text-secondary: #6B7280;
-      --nav-height: 72px;
+      --warm-gray: #F5F5F0;
+      --border-color: #E5E5E0;
+      --text-secondary: #6B6B6B;
+      --gold: #8B7535;
     }
 
     html {
@@ -33,7 +30,7 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: var(--night-black);
+      color: var(--black);
       background: var(--white);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -41,57 +38,57 @@
     }
 
     /* ── Navigation ── */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-height);
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
+    .nav-wrapper {
+      position: sticky;
+      top: 20px;
       z-index: 1000;
       display: flex;
-      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      pointer-events: none;
     }
 
-    .nav-inner {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 24px;
+    .nav {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 28px;
+      padding: 12px 12px 12px 24px;
+      border: 1px solid var(--border-color);
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      pointer-events: auto;
     }
 
     .nav-logo {
-      font-family: 'SFT Schrifted Sans', 'Inter', sans-serif;
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--cyber-blue);
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--black);
       text-decoration: none;
       letter-spacing: -0.5px;
+      margin-right: 8px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-links a {
       font-size: 14px;
-      font-weight: 500;
-      color: var(--night-black);
+      font-weight: 400;
+      color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.2s;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
-      color: var(--cyber-blue);
+      color: var(--black);
     }
 
     .btn {
@@ -102,11 +99,11 @@
       font-size: 15px;
       font-weight: 500;
       font-family: inherit;
-      border-radius: 8px;
+      border-radius: 100px;
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      transition: opacity 0.2s, transform 0.15s;
     }
 
     .btn:active {
@@ -114,18 +111,18 @@
     }
 
     .btn-primary {
-      background: var(--cyber-blue);
+      background: var(--black);
       color: var(--white);
     }
 
     .btn-primary:hover {
-      background: var(--cyber-blue-hover);
-      box-shadow: 0 4px 20px rgba(74, 83, 255, 0.3);
+      opacity: 0.85;
     }
 
     .btn-nav {
       padding: 10px 22px;
       font-size: 14px;
+      border-radius: 100px;
     }
 
     .hamburger {
@@ -142,7 +139,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--night-black);
+      background: var(--black);
       border-radius: 2px;
       transition: transform 0.3s, opacity 0.3s;
     }
@@ -156,127 +153,131 @@
 
     /* ── Sections ── */
     .section {
-      padding: 100px 0;
-    }
-
-    .section-alt {
-      background: var(--light-bg);
+      padding: 120px 0;
     }
 
     .section-label {
       display: inline-block;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--cyber-blue);
-      background: rgba(74, 83, 255, 0.08);
-      padding: 6px 16px;
-      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
       margin-bottom: 20px;
-      letter-spacing: 0.02em;
     }
 
     .section-heading {
-      font-size: 42px;
-      font-weight: 600;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
       line-height: 1.15;
       letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      max-width: 720px;
+      color: var(--black);
     }
 
-    .section-subheading {
-      font-size: 18px;
+    .section-desc {
+      font-size: 17px;
       line-height: 1.7;
       color: var(--text-secondary);
-      max-width: 640px;
-      margin-bottom: 40px;
     }
 
-    .section-center {
-      text-align: center;
+    /* Two-column section header */
+    .section-header-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-bottom: 60px;
     }
 
-    .section-center .section-heading,
-    .section-center .section-subheading {
-      margin-left: auto;
-      margin-right: auto;
+    .section-header-two-col .section-heading {
+      margin-top: 8px;
+    }
+
+    .section-header-two-col .section-desc {
+      padding-top: 28px;
     }
 
     /* ── Hero ── */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: var(--nav-height);
-      overflow: hidden;
-      background: var(--night-black);
+      padding: 80px 0 0 0;
+      background: var(--white);
     }
 
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      perspective: 400px;
-    }
-
-    .hero-grid-plane {
-      position: absolute;
-      bottom: -20%;
-      left: -20%;
-      right: -20%;
-      height: 80%;
-      transform: rotateX(55deg);
-      background-image:
-        linear-gradient(rgba(74, 83, 255, 0.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(74, 83, 255, 0.25) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
-      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
-      animation: gridPulse 8s ease-in-out infinite;
-    }
-
-    @keyframes gridPulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    .hero-glow {
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(74, 83, 255, 0.12) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero .container {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      padding: 80px 0;
+    .hero-two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-bottom: 60px;
     }
 
     .hero-heading {
-      font-size: 56px;
-      font-weight: 600;
-      line-height: 1.1;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.08;
       letter-spacing: -0.035em;
-      color: var(--white);
-      margin-bottom: 24px;
+      color: var(--black);
+      margin-bottom: 32px;
     }
 
     .hero-sub {
-      font-size: 19px;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.65);
-      max-width: 620px;
-      margin-bottom: 40px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 480px;
+      padding-top: 12px;
+    }
+
+    .hero-viz-block {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--warm-gray);
+    }
+
+    /* ── Viz embeds ── */
+    .viz-embed {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--warm-gray);
+    }
+
+    .viz-iframe {
+      width: 100%;
+      border: none;
+      display: block;
+    }
+
+    .viz-hero { height: 560px; }
+    .viz-trajectory { height: 520px; }
+    .viz-desktop-only { display: block; }
+    .viz-mobile-only { display: none; }
+
+    /* ── Stats row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+      margin-bottom: 48px;
+    }
+
+    .stat-item {
+      text-align: left;
+    }
+
+    .stat-value {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .stat-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
     }
 
     /* ── Cards grid ── */
@@ -288,84 +289,90 @@
     }
 
     .card {
-      background: var(--white);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
+      background: var(--warm-gray);
+      border-radius: 16px;
       padding: 32px;
-      transition: box-shadow 0.3s, transform 0.3s;
+      transition: transform 0.3s;
     }
 
     .card:hover {
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
       transform: translateY(-2px);
     }
 
-    .section-alt .card {
-      background: var(--white);
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--border-color);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
     }
 
-    /* ── Stat cards ── */
-    .stat-card {
-      text-align: center;
-      padding: 40px 28px;
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--black);
     }
 
-    .stat-value {
-      font-size: 48px;
-      font-weight: 600;
-      color: var(--cyber-blue);
-      letter-spacing: -0.03em;
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .stat-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    /* ── Feature cards ── */
-    .feature-card-title {
+    .card-title {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 10px;
-      color: var(--night-black);
+      color: var(--black);
     }
 
-    .feature-card-text {
+    .card-text {
       font-size: 15px;
       line-height: 1.7;
       color: var(--text-secondary);
     }
 
-    /* ── Regulation cards ── */
-    .reg-card-tag {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--cyber-blue);
-      background: rgba(74, 83, 255, 0.08);
-      padding: 4px 12px;
-      border-radius: 100px;
-      margin-bottom: 16px;
-    }
-
-    .reg-card-title {
-      font-size: 20px;
+    .card-subtitle {
+      font-size: 13px;
       font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--night-black);
-    }
-
-    .reg-card-subtitle {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--cyber-blue);
+      color: var(--gold);
       margin-bottom: 12px;
     }
 
-    .reg-card-text {
+    /* ── Image block ── */
+    .img-block {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--warm-gray);
+    }
+
+    .img-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── About two-col ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      padding-top: 8px;
+    }
+
+    .about-text-block h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .about-text-block p {
       font-size: 15px;
       line-height: 1.7;
       color: var(--text-secondary);
@@ -373,32 +380,88 @@
 
     /* ── CTA Section ── */
     .cta-section {
-      background: var(--night-black);
-      color: var(--white);
-      text-align: center;
-      padding: 100px 0;
+      padding: 120px 0;
+      background: var(--white);
     }
 
-    .cta-section .section-heading {
-      color: var(--white);
-      margin-left: auto;
-      margin-right: auto;
+    .cta-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
     }
 
-    .cta-section .section-subheading {
-      color: rgba(255, 255, 255, 0.6);
-      margin-left: auto;
-      margin-right: auto;
-      margin-bottom: 40px;
+    .cta-right {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      padding-top: 28px;
     }
 
     /* ── Footer ── */
     .footer {
-      padding: 32px 0;
-      text-align: center;
-      font-size: 14px;
+      background: #1A1A1A;
+      padding: 80px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .footer-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 8px;
+    }
+
+    .footer-links a {
+      font-size: 15px;
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.7;
+    }
+
+    .footer-cta {
+      text-align: right;
+      padding-top: 8px;
+    }
+
+    .footer-cta a {
+      font-size: 15px;
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .footer-cta a:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Clinical section full-width paragraph ── */
+    .clinical-paragraph {
+      font-size: 17px;
+      line-height: 1.7;
       color: var(--text-secondary);
-      border-top: 1px solid var(--border-color);
+      max-width: 900px;
+      margin-top: 20px;
     }
 
     /* ── Scroll animations ── */
@@ -413,61 +476,41 @@
       transform: translateY(0);
     }
 
-    /* Stagger children */
     .cards-grid .card:nth-child(1) { transition-delay: 0s; }
     .cards-grid .card:nth-child(2) { transition-delay: 0.1s; }
     .cards-grid .card:nth-child(3) { transition-delay: 0.2s; }
-
-    /* ── Visualization embeds ── */
-    .viz-embed {
-      width: 100%;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #0e0f12;
-    }
-
-    .viz-iframe {
-      width: 100%;
-      border: none;
-      display: block;
-    }
-
-    .viz-hero {
-      height: 560px;
-    }
-
-    .viz-trajectory {
-      height: 520px;
-    }
-
-    .viz-desktop-only { display: block; }
-    .viz-mobile-only { display: none; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .viz-desktop-only { display: none; }
       .viz-mobile-only { display: block; }
+      .viz-hero { height: 480px; }
+      .viz-trajectory { height: 720px; }
 
-      .viz-hero {
-        height: 480px;
+      .nav-wrapper {
+        padding: 0 16px;
+        top: 12px;
       }
 
-      .viz-trajectory {
-        height: 720px;
+      .nav {
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px 16px;
+        border-radius: 16px;
       }
-    }
 
-    @media (max-width: 768px) {
       .nav-links {
         position: fixed;
-        top: var(--nav-height);
-        left: 0;
-        right: 0;
+        top: 70px;
+        left: 16px;
+        right: 16px;
         background: var(--white);
         flex-direction: column;
         padding: 24px;
         gap: 20px;
-        border-bottom: 1px solid var(--border-color);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.08);
         transform: translateY(-120%);
         transition: transform 0.3s ease;
         z-index: 999;
@@ -484,37 +527,47 @@
       .hamburger.active span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
       }
-
       .hamburger.active span:nth-child(2) {
         opacity: 0;
       }
-
       .hamburger.active span:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
       }
 
+      .hero {
+        padding: 40px 0 0 0;
+      }
+
+      .hero-two-col {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
       .hero-heading {
-        font-size: 36px;
+        font-size: clamp(32px, 8vw, 48px);
       }
 
       .hero-sub {
-        font-size: 17px;
-      }
-
-      .hero-content {
-        padding: 60px 0;
+        padding-top: 0;
       }
 
       .section {
-        padding: 72px 0;
+        padding: 80px 0;
       }
 
       .section-heading {
-        font-size: 30px;
+        font-size: clamp(26px, 5vw, 36px);
       }
 
-      .section-subheading {
-        font-size: 16px;
+      .section-header-two-col {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 40px;
+      }
+
+      .section-header-two-col .section-desc {
+        padding-top: 0;
       }
 
       .cards-grid {
@@ -522,8 +575,44 @@
         gap: 16px;
       }
 
+      .stats-row {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
       .stat-value {
         font-size: 40px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .cta-two-col {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .cta-right {
+        padding-top: 0;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-logo {
+        font-size: 48px;
+      }
+
+      .footer-cta {
+        text-align: left;
+      }
+
+      .cta-section {
+        padding: 80px 0;
       }
     }
 
@@ -540,17 +629,25 @@
       .hero-heading {
         font-size: 44px;
       }
+
+      .hero-two-col {
+        gap: 32px;
+      }
+
+      .section-header-two-col {
+        gap: 32px;
+      }
     }
   </style>
 </head>
 <body>
 
   <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-inner">
+  <div class="nav-wrapper">
+    <nav class="nav">
       <a href="#" class="nav-logo">wondi</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#clinical-validation">Clinical Validation</a></li>
+        <li><a href="#clinician-validated">Clinical Validation</a></li>
         <li><a href="#early-detection">Early Detection</a></li>
         <li><a href="#compliance">Compliance</a></li>
         <li><a href="#about">About</a></li>
@@ -561,78 +658,101 @@
         <span></span>
         <span></span>
       </button>
-    </div>
-  </nav>
+    </nav>
+  </div>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-grid-plane"></div>
-    </div>
-    <div class="hero-glow"></div>
     <div class="container">
-      <div class="hero-content fade-up">
-        <h1 class="hero-heading">Detect mental health risk in AI&nbsp;Chatbots before it becomes a&nbsp;crisis.</h1>
-        <p class="hero-sub">Wondi is a clinician validated API, that provides a trajectory based mental health risk scoring for AI companion platforms, built for millions of conversations.</p>
-        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+      <div class="hero-two-col fade-up">
+        <div>
+          <h1 class="hero-heading">Detect mental health risk in AI&nbsp;Chatbots before it becomes a&nbsp;crisis.</h1>
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+        </div>
+        <div>
+          <p class="hero-sub">Wondi is a clinician validated API, that provides a trajectory based mental health risk scoring for AI companion platforms, built for millions of conversations.</p>
+        </div>
       </div>
-      <div class="viz-embed fade-up" style="margin-top: 60px;">
+      <div class="viz-embed fade-up">
         <iframe src="./viz/visualization.html" class="viz-iframe viz-hero" loading="lazy" title="Wondi Product Visualization"></iframe>
       </div>
     </div>
   </section>
 
-  <!-- Clinical Validation -->
-  <section class="section" id="clinical-validation">
-    <div class="container section-center">
+  <!-- Clinician Validated -->
+  <section class="section" id="clinician-validated">
+    <div class="container">
       <div class="fade-up">
         <span class="section-label">Clinician Validated</span>
         <h2 class="section-heading">Built on real clinical science. By real clinicians.</h2>
+        <p class="clinical-paragraph">5 years of MIT longitudinal research. Peer reviewed methodology. A psychiatrist on the founding team. Wondi is the only mental health risk tool for AI conversations built from clinical ground up.</p>
       </div>
-      <div class="cards-grid">
-        <div class="card stat-card fade-up">
+      <div class="stats-row fade-up">
+        <div class="stat-item">
           <div class="stat-value">99%</div>
           <div class="stat-desc">Clinical Classification Accuracy</div>
         </div>
-        <div class="card stat-card fade-up">
+        <div class="stat-item">
           <div class="stat-value">5 Years</div>
           <div class="stat-desc">MIT Longitudinal Mental Health Research</div>
         </div>
-        <div class="card stat-card fade-up">
+        <div class="stat-item">
           <div class="stat-value">Psychiatrist Led</div>
           <div class="stat-desc">Clinical Methodology Built By Mental Health Experts</div>
         </div>
       </div>
-      <div class="fade-up" style="margin-top: 48px;">
+      <div class="fade-up">
         <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
       </div>
     </div>
   </section>
 
   <!-- Early Detection -->
-  <section class="section section-alt" id="early-detection">
+  <section class="section" id="early-detection">
     <div class="container">
-      <div class="fade-up">
-        <span class="section-label">Early Detection</span>
-        <h2 class="section-heading">Risk scores that read where the conversation is going.</h2>
-        <p class="section-subheading">Wondi tracks conversation trajectories in real time. Not single messages. Not keywords. The full arc. So you intervene before someone reaches the danger zone.</p>
+      <div class="section-header-two-col fade-up">
+        <div>
+          <span class="section-label">Early Detection</span>
+          <h2 class="section-heading">Risk scores that read where the conversation is going.</h2>
+        </div>
+        <div>
+          <p class="section-desc" style="padding-top: 28px;">Wondi tracks conversation trajectories in real time. Not single messages. Not keywords. The full arc. So you intervene before someone reaches the danger zone.</p>
+        </div>
       </div>
       <div class="viz-embed fade-up" style="margin-bottom: 48px;">
         <iframe src="./viz/trajectory-desktop.html" class="viz-iframe viz-trajectory viz-desktop-only" loading="lazy" title="Wondi Trajectory Detection"></iframe>
         <iframe src="./viz/trajectory-mobile.html" class="viz-iframe viz-trajectory viz-mobile-only" loading="lazy" title="Wondi Trajectory Detection Mobile"></iframe>
       </div>
-      <div class="cards-grid">
-        <div class="card fade-up">
-          <div class="feature-card-title">Trajectory Scoring</div>
-          <div class="feature-card-text">Risk updates continuously as the conversation evolves.</div>
+      <div class="cards-grid fade-up">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="12" width="4" height="9"></rect>
+              <rect x="10" y="7" width="4" height="14"></rect>
+              <rect x="17" y="3" width="4" height="18"></rect>
+            </svg>
+          </div>
+          <div class="card-title">Trajectory Scoring</div>
+          <div class="card-text">Risk updates continuously as the conversation evolves.</div>
         </div>
-        <div class="card fade-up">
-          <div class="feature-card-title">Early Intervention</div>
-          <div class="feature-card-text">Redirect conversations before they reach the danger zone.</div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <div class="card-title">Early Intervention</div>
+          <div class="card-text">Redirect conversations before they reach the danger zone.</div>
         </div>
-        <div class="card fade-up">
-          <div class="feature-card-title">Full Audit Log</div>
-          <div class="feature-card-text">Every signal scored, timestamped and documented.</div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <div class="card-title">Full Audit Log</div>
+          <div class="card-text">Every signal scored, timestamped and documented.</div>
         </div>
       </div>
     </div>
@@ -641,70 +761,130 @@
   <!-- Compliance -->
   <section class="section" id="compliance">
     <div class="container">
-      <div class="fade-up">
-        <span class="section-label">Compliance Ready</span>
-        <h2 class="section-heading">The law is already here. Wondi keeps you ahead of it.</h2>
-        <p class="section-subheading">California SB 243 is live. 11 more states are following. Wondi gives you the evidence based protocols regulators require and the audit trail to prove it.</p>
+      <div class="section-header-two-col fade-up">
+        <div>
+          <span class="section-label">Compliance Ready</span>
+          <h2 class="section-heading">The law is already here. Wondi keeps you ahead of it.</h2>
+        </div>
+        <div>
+          <p class="section-desc" style="padding-top: 28px;">California SB 243 is live. 11 more states are following. Wondi gives you the evidence based protocols regulators require and the audit trail to prove it.</p>
+        </div>
       </div>
-      <div class="cards-grid">
-        <div class="card fade-up">
-          <div class="reg-card-tag">California SB 243</div>
-          <div class="reg-card-title">AAIDEN Act</div>
-          <div class="reg-card-subtitle">Live January 1, 2026</div>
-          <div class="reg-card-text">Requires evidence based mental health crisis protocols for AI companion platforms.</div>
+      <div class="img-block fade-up" style="margin-bottom: 48px;">
+        <img src="./img/compliance.png" alt="Compliance overview" loading="lazy">
+      </div>
+      <div class="cards-grid fade-up">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l-8 4.5v9L12 21l8-4.5v-9L12 3z"></path>
+              <path d="M12 12L4 7.5"></path>
+              <path d="M12 12l8-4.5"></path>
+              <path d="M12 12v9"></path>
+            </svg>
+          </div>
+          <div class="card-title">California SB 243</div>
+          <div class="card-subtitle">AAIDEN Act | Live January 1, 2026</div>
+          <div class="card-text">Requires evidence based mental health crisis protocols for AI companion platforms.</div>
         </div>
-        <div class="card fade-up">
-          <div class="reg-card-tag">New York Article 47</div>
-          <div class="reg-card-title">S.3008</div>
-          <div class="reg-card-subtitle">Live November 5, 2025</div>
-          <div class="reg-card-text">Mandates crisis identification protocols and disclosures every 3 hours for AI companions.</div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="10" width="18" height="11" rx="2"></rect>
+              <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
+              <path d="M8 21V10"></path>
+              <path d="M16 21V10"></path>
+              <path d="M12 21V10"></path>
+              <line x1="3" y1="14" x2="21" y2="14"></line>
+            </svg>
+          </div>
+          <div class="card-title">New York Article 47</div>
+          <div class="card-subtitle">S.3008 | Live November 5, 2025</div>
+          <div class="card-text">Mandates crisis identification protocols and disclosures every 3 hours for AI companions.</div>
         </div>
-        <div class="card fade-up">
-          <div class="reg-card-tag">Illinois WOPR Act</div>
-          <div class="reg-card-title">HB 1806</div>
-          <div class="reg-card-subtitle">Signed August 2025</div>
-          <div class="reg-card-text">Unanimously passed. AI cannot independently deliver mental health care without licensed professional oversight.</div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+            </svg>
+          </div>
+          <div class="card-title">Illinois WOPR Act</div>
+          <div class="card-subtitle">HB 1806 | Signed August 2025</div>
+          <div class="card-text">Unanimously passed. AI cannot independently deliver mental health care without licensed professional oversight.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How it Works -->
-  <section class="section section-alt" id="about">
+  <!-- How it Works / About -->
+  <section class="section" id="about">
     <div class="container">
-      <div class="fade-up">
-        <h2 class="section-heading">We read linguistic patterns. Not personal data.</h2>
+      <div class="section-header-two-col fade-up">
+        <div>
+          <span class="section-label">How it works</span>
+          <h2 class="section-heading">We read linguistic patterns. Not personal data.</h2>
+        </div>
+        <div>
+          <p class="section-desc" style="padding-top: 28px;">One API call per conversation. Nothing stored. Nothing retained.</p>
+        </div>
       </div>
-      <div class="cards-grid">
-        <div class="card fade-up">
-          <div class="feature-card-title">Privacy by design</div>
-          <div class="feature-card-text">No user IDs, no personal information, no sensitive data sent anywhere. Wondi analyzes linguistic patterns in the conversation text only. Data processing agreement included as standard.</div>
+      <div class="about-grid fade-up">
+        <div class="img-block">
+          <img src="./img/about.png" alt="How Wondi works" loading="lazy">
         </div>
-        <div class="card fade-up">
-          <div class="feature-card-title">Minimal lift to get live</div>
-          <div class="feature-card-text">A single API call per conversation. A risk score comes back in milliseconds. No changes to your existing infrastructure, no new systems to maintain.</div>
-        </div>
-        <div class="card fade-up">
-          <div class="feature-card-title">You stay in control</div>
-          <div class="feature-card-text">Set your own thresholds. Decide what happens with the score. Wondi gives you the signal. What your platform does with it is entirely up to you.</div>
+        <div class="about-text-stack">
+          <div class="about-text-block">
+            <h3>Privacy by design</h3>
+            <p>No user IDs, no personal information, no sensitive data sent anywhere. Wondi analyzes linguistic patterns in the conversation text only. Data processing agreement included as standard.</p>
+          </div>
+          <div class="about-text-block">
+            <h3>Minimal lift to get live.</h3>
+            <p>A single API call per conversation. A risk score comes back in milliseconds. No changes to your existing infrastructure, no new systems to maintain.</p>
+          </div>
+          <div class="about-text-block">
+            <h3>You stay in control.</h3>
+            <p>Set your own thresholds. Decide what happens with the score. Wondi gives you the signal. What your platform does with it is entirely up to you.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Final CTA -->
+  <!-- Get in Touch / CTA -->
   <section class="cta-section">
-    <div class="container fade-up">
-      <h2 class="section-heading">Get in touch</h2>
-      <p class="section-subheading">Your platform is talking to people in distress right now. Find out what Wondi sees in your conversations.</p>
-      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+    <div class="container">
+      <div class="cta-two-col fade-up">
+        <div>
+          <span class="section-label">Get in touch</span>
+          <h2 class="section-heading" style="margin-bottom: 32px;">Your platform is talking to people in distress right now.</h2>
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+        </div>
+        <div>
+          <p class="cta-right">Find out what Wondi sees in your conversations.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2026 Wondi.ai &middot; All rights reserved</p>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">wondi</div>
+        </div>
+        <div>
+          <ul class="footer-links">
+            <li><a href="#clinician-validated">Clinician Validated</a></li>
+            <li><a href="#early-detection">Early Detection</a></li>
+            <li><a href="#compliance">Compliance Ready</a></li>
+            <li><a href="#about">How it works</a></li>
+          </ul>
+        </div>
+        <div class="footer-cta">
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank">Book a Demo</a>
+        </div>
+      </div>
     </div>
   </footer>
 
