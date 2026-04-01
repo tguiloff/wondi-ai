@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wondi — Product Visualization</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0e0f12;
+    --panel-dark: #13151a;
+    --panel-light: #f8f8f7;
+    --border: rgba(255,255,255,0.07);
+    --amber: #f59e0b;
+    --grey: #8b949e;
+    --white: #e6edf3;
+    --chat-ai-bg: #f0f0ee;
+    --chat-border: #e5e5e0;
+    --chat-text: #1a1a1a;
+    --chat-meta: #888;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+  }
+
+  .container { width: 100%; max-width: 1100px; }
+
+  .panels {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    background: var(--border); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  }
+
+  /* LEFT */
+  .panel-left { background: var(--panel-light); display: flex; flex-direction: column; }
+  .panel-bar {
+    padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--chat-border); background: #fff;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .panel-title { font-size: 11px; font-weight: 500; color: var(--chat-meta); margin-left: 6px; letter-spacing: 0.04em; }
+
+  .chat-area {
+    flex: 1; padding: 18px 16px; display: flex; flex-direction: column;
+    gap: 10px; min-height: 480px; overflow: hidden;
+  }
+  .msg {
+    display: flex; flex-direction: column; gap: 2px;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .msg.visible { opacity: 1; transform: translateY(0); }
+  .msg-label { font-size: 10px; font-weight: 500; color: var(--chat-meta); letter-spacing: 0.04em; padding: 0 4px; }
+  .msg-bubble {
+    padding: 9px 13px; border-radius: 12px; font-size: 13px;
+    line-height: 1.55; color: var(--chat-text); max-width: 88%;
+  }
+  .msg.user .msg-bubble {
+    background: #fff; border: 1px solid var(--chat-border);
+    border-radius: 12px 12px 12px 3px; align-self: flex-start;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .msg.ai .msg-bubble {
+    background: var(--chat-ai-bg); border: 1px solid var(--chat-border);
+    border-radius: 12px 12px 3px 12px; align-self: flex-end;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .msg.ai .msg-label { text-align: right; }
+
+
+  /* RIGHT */
+  .panel-right { background: var(--panel-dark); display: flex; flex-direction: column; }
+  .panel-bar-dark {
+    padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02);
+  }
+  .panel-bar-dark .panel-title { color: var(--grey); }
+  .json-area {
+    flex: 1; padding: 16px 18px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    line-height: 1.7; overflow: hidden; color: var(--white); min-height: 480px;
+  }
+  .jl { display: block; white-space: pre; }
+
+  .jk  { color: #79c0ff; }
+  .js  { color: #a5d6ff; }
+  .jn  { color: #ffa657; }
+  .jb  { color: #ff7b72; }
+  .jp  { color: #8b949e; }
+  .ja  { color: #f59e0b; }
+  .jgr { color: #636e7b; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="panels">
+    <div class="panel-left">
+      <div class="panel-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="panel-title">User conversation</span>
+      </div>
+      <div class="chat-area">
+        <div class="msg user" id="m1">
+          <span class="msg-label">User</span>
+          <div class="msg-bubble">Thinking about hiking in Vermont this weekend. Solo trip up near Killington.</div>
+        </div>
+        <div class="msg ai" id="m2">
+          <span class="msg-label">AI</span>
+          <div class="msg-bubble">That sounds really nice. Have you hiked there before?</div>
+        </div>
+        <div class="msg user" id="m3">
+          <span class="msg-label">User</span>
+          <div class="msg-bubble">No. Got into hiking after my breakup. Needed something to fill the weekends. October was bad — don't really want to get into it.</div>
+        </div>
+        <div class="msg ai" id="m4">
+          <span class="msg-label">AI</span>
+          <div class="msg-bubble">Hiking is a great way to reset. Fresh air really does help.</div>
+        </div>
+        <div class="msg user" id="m5">
+          <span class="msg-label">User</span>
+          <div class="msg-bubble">Had drinks with friends earlier. I was performing the whole time — like watching myself from the outside being "fun." None of it felt real.</div>
+        </div>
+        <div class="msg ai" id="m6">
+          <span class="msg-label">AI</span>
+          <div class="msg-bubble">That can happen when you're drained. You'll probably feel more like yourself on the trail.</div>
+        </div>
+        <div class="msg user" id="m7">
+          <span class="msg-label">User</span>
+          <div class="msg-bubble">Maybe. Hey — do you know how to set up auto-pay for student loans? Want to get everything on autopilot so I don't have to think about it.</div>
+        </div>
+        <div class="msg ai" id="m8">
+          <span class="msg-label">AI</span>
+          <div class="msg-bubble">It sounds like you've been carrying a lot lately. Before we get to that — how are you actually doing?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-right">
+      <div class="panel-bar-dark">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="panel-title">wondi_analysis · live output</span>
+      </div>
+      <div class="json-area" id="json-area"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function renderJSON(msgCount) {
+  const fired = msgCount >= 7;
+  const step  = msgCount >= 7 ? 3 : msgCount >= 5 ? 2 : msgCount >= 3 ? 1 : 0;
+  const analyzed = Math.min(msgCount, 7);
+
+  // trend evolves per dimension per step:
+  // step 0 → stable, step 1 → some start rising, step 2 → most rising, step 3 → all rising
+  const dims = [
+    { key: 'derealization',       s: [0.10, 0.18, 0.71, 0.79], trends: ['→ stable', '→ stable', '↑ rising', '↑ rising'] },
+    { key: 'sealed_prior_crisis', s: [0.08, 0.62, 0.65, 0.68], trends: ['→ stable', '↑ rising', '↑ rising', '↑ rising'] },
+    { key: 'social_withdrawal',   s: [0.22, 0.34, 0.48, 0.57], trends: ['→ stable', '→ stable', '↑ rising', '↑ rising'] },
+    { key: 'self_harm',           s: [0.05, 0.08, 0.12, 0.61], trends: ['→ stable', '→ stable', '→ stable', '↑ rising'] },
+    { key: 'suicidal_ideation',   s: [0.04, 0.06, 0.09, 0.48], trends: ['→ stable', '→ stable', '→ stable', '↑ rising'] },
+  ];
+
+  // risk score lines
+  const riskEntries = [['msg_1', '0.11', false]];
+  if (msgCount >= 3) riskEntries.push(['msg_3', '0.52', false]);
+  if (msgCount >= 5) riskEntries.push(['msg_5', '0.61', false]);
+  if (msgCount >= 7) riskEntries.push(['msg_7', '0.78', true]);
+
+  const riskHTML = riskEntries.map(([ k, v, amber ], i) => {
+    const comma = i < riskEntries.length - 1 ? '<span class="jp">,</span>' : '';
+    const cls   = amber ? 'ja' : 'jn';
+    return `        <span class="jk">"${k}"</span><span class="jp">:</span> <span class="${cls}">${v}</span>${comma}`;
+  });
+
+  const dimHTML = dims.map((d, i) => {
+    const score = d.s[step].toFixed(2);
+    const cls   = parseFloat(score) >= 0.6 ? 'ja' : 'jn';
+    const pad   = ' '.repeat(Math.max(0, 22 - d.key.length));
+    const comma = i < dims.length - 1 ? ',' : '';
+    const trend = d.trends[step];
+    const trendCls = trend === '→ stable' ? 'jgr' : trend.startsWith('↑') ? 'ja' : 'js';
+    return `      <span class="jk">"${d.key}"</span>${pad}<span class="jp">:</span> <span class="jp">{</span> <span class="jk">"score"</span><span class="jp">:</span> <span class="${cls}">${score}</span><span class="jp">,</span> <span class="jk">"trend"</span><span class="jp">:</span> <span class="${trendCls}">"${trend}"</span> <span class="jp">}${comma}</span>`;
+  });
+
+  const lines = [
+    `<span class="jp">{</span>`,
+    `  <span class="jk">"wondi_analysis"</span><span class="jp">: {</span>`,
+    `    <span class="jk">"messages_analyzed"</span><span class="jp">:</span> <span class="jn">${analyzed}</span><span class="jp">,</span>`,
+    ``,
+    `    <span class="jk">"trajectory"</span><span class="jp">: {</span>`,
+    `      <span class="jk">"pattern"</span><span class="jp">:</span> <span class="js">"MASKED_DISTRESS_SIGNAL"</span><span class="jp">,</span>`,
+    `      <span class="jk">"risk_score_over_time"</span><span class="jp">: {</span>`,
+    ...riskHTML,
+    `      <span class="jp">},</span>`,
+    `      <span class="jk">"velocity"</span><span class="jp">:</span> <span class="js">"+0.22_per_message"</span><span class="jp">,</span>`,
+    fired
+      ? `      <span class="jk">"predicted_score_at_msg_12"</span><span class="jp">:</span> <span class="ja">0.94</span><span class="jp">,</span>`
+      : `      <span class="jk">"predicted_score_at_msg_12"</span><span class="jp">:</span> <span class="jgr">…computing</span><span class="jp">,</span>`,
+    `      <span class="jk">"keyword_flags_detected"</span><span class="jp">:</span> <span class="jgr">0</span>`,
+    `    <span class="jp">},</span>`,
+    ``,
+    `    <span class="jk">"clinical_dimensions"</span><span class="jp">: {</span>`,
+    ...dimHTML,
+    `    <span class="jp">},</span>`,
+    ``,
+    `    <span class="jk">"risk_classification"</span><span class="jp">: {</span>`,
+    `      <span class="jk">"immediate_crisis"</span><span class="jp">:</span>   <span class="jb">false</span><span class="jp">,</span>`,
+    fired
+      ? `      <span class="jk">"trajectory_concern"</span><span class="jp">:</span> <span class="ja">true</span><span class="jp">,</span>`
+      : `      <span class="jk">"trajectory_concern"</span><span class="jp">:</span> <span class="jb">false</span><span class="jp">,</span>`,
+    `      <span class="jk">"keyword_triggered"</span><span class="jp">:</span>  <span class="jgr">false</span>`,
+    `    <span class="jp">},</span>`,
+    ``,
+    `    <span class="jk">"recommended_action"</span><span class="jp">: {</span>`,
+    fired
+      ? `      <span class="jk">"type"</span><span class="jp">:</span>              <span class="ja">"SOFT_NUDGE"</span><span class="jp">,</span>`
+      : `      <span class="jk">"type"</span><span class="jp">:</span>              <span class="jgr">"MONITORING"</span><span class="jp">,</span>`,
+    fired
+      ? `      <span class="jk">"urgency"</span><span class="jp">:</span>           <span class="ja">"MONITOR_ESCALATE"</span><span class="jp">,</span>`
+      : `      <span class="jk">"urgency"</span><span class="jp">:</span>           <span class="js">"NON_URGENT"</span><span class="jp">,</span>`,
+    `      <span class="jk">"goal"</span><span class="jp">:</span>              <span class="js">"redirect_trajectory"</span><span class="jp">,</span>`,
+    `      <span class="jk">"escalate_to_human"</span><span class="jp">:</span> <span class="jb">false</span>`,
+    `    <span class="jp">}</span>`,
+    `  <span class="jp">}</span>`,
+    `<span class="jp">}</span>`,
+  ];
+
+  document.getElementById('json-area').innerHTML =
+    lines.map(l => `<span class="jl">${l || ' '}</span>`).join('\n');
+}
+
+const MSG_IDS   = ['m1','m2','m3','m4','m5','m6','m7','m8'];
+const MSG_TIMES = [600, 1800, 3200, 4600, 6200, 7600, 9200, 11400];
+const JSON_STEP = [1,   1,    3,    3,    5,    5,    7,    7   ];
+let timers = [];
+
+function runAnimation() {
+  // clear any old timers
+  timers.forEach(t => clearTimeout(t));
+  timers = [];
+
+  // reset messages
+  MSG_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('visible');
+  });
+  renderJSON(0);
+
+  MSG_IDS.forEach((id, i) => {
+    const t = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+      renderJSON(JSON_STEP[i]);
+    }, MSG_TIMES[i]);
+    timers.push(t);
+  });
+
+  const loop = setTimeout(runAnimation, 15000);
+  timers.push(loop);
+}
+
+renderJSON(0);
+runAnimation();
+</script>
+</body>
+</html>

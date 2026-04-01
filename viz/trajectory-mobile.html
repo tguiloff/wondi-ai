@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Wondi — Trajectory (Mobile)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060708;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  .phone {
+    position: relative;
+    width: 390px;
+    height: 700px;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 40px 120px rgba(0,0,0,0.85);
+    background: #080a0e;
+  }
+
+  /* Status bar */
+  .status-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 0;
+    pointer-events: none;
+  }
+  .status-time { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: -0.3px; }
+  .status-icons { display: flex; gap: 7px; align-items: center; }
+
+  canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .label {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 100px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    white-space: nowrap;
+    z-index: 5;
+  }
+  .label-intervention {
+    color: #f59e0b;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+  }
+  .label-safe {
+    color: #3fb950;
+    background: rgba(63,185,80,0.10);
+    border: 1px solid rgba(63,185,80,0.25);
+  }
+  .label.visible { opacity: 1; }
+
+  .watermark {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    color: rgba(139,148,158,0.25);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* Home indicator */
+  .home-bar {
+    position: absolute;
+    bottom: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 110px; height: 4px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 100px;
+    z-index: 10;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="phone" id="phone">
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
+        <rect x="0" y="4" width="3" height="8" rx="1"/>
+        <rect x="4.5" y="2.5" width="3" height="9.5" rx="1"/>
+        <rect x="9" y="1" width="3" height="11" rx="1"/>
+        <rect x="13.5" y="0" width="3" height="12" rx="1"/>
+      </svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="white">
+        <path d="M8 2.4C5.6 2.4 3.4 3.4 1.8 5L0 3.2C2.1 1.2 4.9 0 8 0s5.9 1.2 8 3.2L14.2 5C12.6 3.4 10.4 2.4 8 2.4z"/>
+        <path d="M8 5.6c-1.5 0-2.8.6-3.8 1.6L2.4 5.4C3.8 4 5.8 3.2 8 3.2s4.2.8 5.6 2.2l-1.8 1.8C10.8 6.2 9.5 5.6 8 5.6z"/>
+        <circle cx="8" cy="10" r="2"/>
+      </svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/>
+        <rect x="2" y="2" width="17" height="8" rx="2" fill="white"/>
+        <path d="M23 4.5v3a1.5 1.5 0 000-3z" fill="white" fill-opacity="0.4"/>
+      </svg>
+    </div>
+  </div>
+
+  <canvas id="c"></canvas>
+
+  <div class="label label-intervention" id="lbl-intervention">⬡ Intervention triggered</div>
+  <div class="label label-safe" id="lbl-safe">✓ Trajectory redirected</div>
+  <div class="watermark">Wondi · Trajectory Detection</div>
+  <div class="home-bar"></div>
+
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+const phone  = document.getElementById('phone');
+const lblIntervention = document.getElementById('lbl-intervention');
+const lblSafe         = document.getElementById('lbl-safe');
+
+function resize() {
+  canvas.width  = phone.offsetWidth;
+  canvas.height = phone.offsetHeight;
+}
+resize();
+const W = () => canvas.width;
+const H = () => canvas.height;
+
+const LOOP = 7000;
+let startTime = null;
+
+// ── Danger Zone — bottom-right of portrait canvas ─────────────────────────
+// Portrait: W=390, H=700 → DZ at ~x:0.78, y:0.75
+const DZ = {
+  cx: () => W() * 0.78,
+  cy: () => H() * 0.75,
+  r:  () => Math.min(W(), H()) * 0.18,
+};
+
+function drawDangerZone(ctx, now, heroPhase) {
+  const cx = DZ.cx(), cy = DZ.cy(), r = DZ.r();
+
+  const flicker = 0.82
+    + Math.sin(now * 0.018) * 0.06
+    + Math.sin(now * 0.047) * 0.05
+    + Math.sin(now * 0.091) * 0.04
+    + Math.sin(now * 0.200) * 0.03;
+
+  let heroBoost = 0;
+  if (heroPhase > 0.42 && heroPhase < 0.72) {
+    heroBoost = Math.sin(Math.PI * (heroPhase - 0.42) / 0.30) * 0.5;
+  }
+  const bi = flicker + heroBoost;
+
+  const g0 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r * 2.2);
+  g0.addColorStop(0,   `rgba(180,45,20,${0.06*bi})`);
+  g0.addColorStop(0.5, `rgba(150,30,10,${0.04*bi})`);
+  g0.addColorStop(1,   'rgba(120,20,5,0)');
+  ctx.fillStyle = g0; ctx.beginPath(); ctx.arc(cx,cy,r*2.2,0,Math.PI*2); ctx.fill();
+
+  const g1 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r*1.4);
+  g1.addColorStop(0,   `rgba(220,60,25,${0.14*bi})`);
+  g1.addColorStop(0.5, `rgba(190,45,15,${0.10*bi})`);
+  g1.addColorStop(1,   'rgba(160,30,10,0)');
+  ctx.fillStyle = g1; ctx.beginPath(); ctx.arc(cx,cy,r*1.4,0,Math.PI*2); ctx.fill();
+
+  const g2 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+  g2.addColorStop(0,    `rgba(255,110,50,${0.24*bi})`);
+  g2.addColorStop(0.55, `rgba(220,65,25,${0.16*bi})`);
+  g2.addColorStop(1,    'rgba(180,40,15,0)');
+  ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+
+  const g3 = ctx.createRadialGradient(cx, cy, 0, cx, cy, r*0.4);
+  g3.addColorStop(0, `rgba(255,160,80,${0.10*bi})`);
+  g3.addColorStop(1, 'rgba(255,100,40,0)');
+  ctx.fillStyle = g3; ctx.beginPath(); ctx.arc(cx,cy,r*0.4,0,Math.PI*2); ctx.fill();
+
+  ctx.font = '500 9px JetBrains Mono, monospace';
+  ctx.textAlign = 'center';
+  ctx.fillStyle = `rgba(255,120,60,${Math.min(1, bi*0.7)})`;
+  ctx.fillText('risk zone', cx, cy - r*0.5);
+  ctx.textAlign = 'left';
+}
+
+// ── Ambient lines — portrait-adapted, chaotic, avoid DZ (x>0.58 AND y>0.60) ─
+// Speed scaled to portrait height
+const HERO_SPEED = (700 * 1.05) / 7000; // ~0.105 px/ms
+
+const LINE_DEFS = [
+  // Top→Bottom left side, gentle S
+  { id: '#1184', rgb: [100,170,255], speed: HERO_SPEED * 0.92, tail: 150,
+    pts: [{x:0.12,y:0},{x:0.10,y:0.20},{x:0.16,y:0.42},{x:0.10,y:0.62},{x:0.12,y:0.85},{x:0.10,y:1.05}] },
+
+  // Enters left-mid, arcs UP sharply to exit top-right
+  { id: '#2847', rgb: [160,120,255], speed: HERO_SPEED * 1.05, tail: 145,
+    pts: [{x:0,y:0.55},{x:0.15,y:0.42},{x:0.30,y:0.28},{x:0.50,y:0.16},{x:0.70,y:0.08},{x:1.05,y:0.05}] },
+
+  // Top→Bottom center-left, slight diagonal
+  { id: '#3092', rgb: [80,210,220], speed: HERO_SPEED * 0.88, tail: 140,
+    pts: [{x:0.35,y:0},{x:0.32,y:0.18},{x:0.28,y:0.38},{x:0.34,y:0.55},{x:0.30,y:0.72},{x:0.26,y:1.05}] },
+
+  // Bottom-left → diagonal → exits right-mid (bends away before DZ)
+  { id: '#4455', rgb: [100,225,180], speed: HERO_SPEED * 0.95, tail: 145,
+    pts: [{x:0,y:0.90},{x:0.15,y:0.75},{x:0.28,y:0.58},{x:0.40,y:0.44},{x:0.52,y:0.32},{x:0.68,y:0.26},{x:1.05,y:0.30}] },
+
+  // Right side → diagonal to top-left (RTL)
+  { id: '#5812', rgb: [200,150,255], speed: HERO_SPEED * 1.02, tail: 140,
+    pts: [{x:1.05,y:0.45},{x:0.80,y:0.35},{x:0.58,y:0.24},{x:0.36,y:0.14},{x:0.16,y:0.06},{x:0,y:0.10}] },
+
+  // Right top → sweeps left in arc → exits bottom-left (RTL, stays left of DZ)
+  { id: '#7341', rgb: [140,200,255], speed: HERO_SPEED * 0.90, tail: 150,
+    pts: [{x:1.05,y:0.20},{x:0.80,y:0.28},{x:0.55,y:0.38},{x:0.35,y:0.52},{x:0.18,y:0.68},{x:0,y:0.80}] },
+
+  // Nearly horizontal mid, slight wave (stays y < 0.50)
+  { id: '#6610', rgb: [255,180,100], speed: HERO_SPEED * 0.85, tail: 135,
+    pts: [{x:0,y:0.32},{x:0.22,y:0.28},{x:0.44,y:0.34},{x:0.62,y:0.28},{x:0.82,y:0.32},{x:1.05,y:0.30}] },
+];
+
+function buildLineData(def) {
+  const pts = def.pts, segs = pts.length - 1;
+  const xs = [], ys = [], dists = [0];
+  let total = 0;
+  for (let s = 0; s < segs; s++) {
+    const p0 = pts[s], p1 = pts[s+1];
+    for (let i = 1; i <= 200; i++) {
+      const t = i/200, t0 = (i-1)/200;
+      const x  = p0.x+(p1.x-p0.x)*t,  y  = p0.y+(p1.y-p0.y)*t;
+      const px = p0.x+(p1.x-p0.x)*t0, py = p0.y+(p1.y-p0.y)*t0;
+      total += Math.hypot(x-px, y-py);
+      xs.push(x); ys.push(y); dists.push(total);
+    }
+  }
+  return { xs, ys, dists, total };
+}
+
+function sampleLine(data, dist) {
+  const d = Math.max(0, Math.min(dist, data.total));
+  let lo = 0, hi = data.dists.length - 1;
+  while (lo < hi - 1) {
+    const mid = (lo+hi)>>1;
+    if (data.dists[mid] <= d) lo = mid; else hi = mid;
+  }
+  return { x: data.xs[lo] ?? data.xs[data.xs.length-1], y: data.ys[lo] ?? data.ys[data.ys.length-1] };
+}
+
+const lines = LINE_DEFS.map(def => ({
+  ...def,
+  data: buildLineData(def),
+  offset: Math.random() * 2000,
+}));
+
+function drawAmbientLine(ctx, line, now) {
+  const w = W(), h = H();
+  const dim = Math.max(w, h);
+  const totalPx  = line.data.total * dim;
+  const elapsed  = now + line.offset;
+  const headPx   = (elapsed * line.speed) % totalPx;
+  const tailPx   = Math.max(0, headPx - line.tail);
+  const headFrac = headPx / totalPx * line.data.total;
+  const tailFrac = tailPx / totalPx * line.data.total;
+  const [r,g,b]  = line.rgb;
+
+  ctx.beginPath();
+  let first = true;
+  for (let i = 0; i <= 50; i++) {
+    const frac = tailFrac + (headFrac-tailFrac)*(i/50);
+    const {x: fx, y: fy} = sampleLine(line.data, frac);
+    const px = fx*w, py = fy*h;
+    if (first) { ctx.moveTo(px,py); first=false; } else ctx.lineTo(px,py);
+  }
+  ctx.strokeStyle = `rgba(${r},${g},${b},0.38)`;
+  ctx.lineWidth = 1.0;
+  ctx.stroke();
+
+  const {x: hx, y: hy} = sampleLine(line.data, headFrac);
+  const hpx = hx*w, hpy = hy*h;
+  const grd = ctx.createRadialGradient(hpx, hpy, 0, hpx, hpy, 4);
+  grd.addColorStop(0, `rgba(${r},${g},${b},0.65)`);
+  grd.addColorStop(1, `rgba(${r},${g},${b},0)`);
+  ctx.beginPath(); ctx.arc(hpx, hpy, 4, 0, Math.PI*2);
+  ctx.fillStyle = grd; ctx.fill();
+
+  ctx.font = '8px JetBrains Mono, monospace';
+  ctx.fillStyle = `rgba(${r},${g},${b},0.42)`;
+  // Smart label placement: avoid edges and DZ
+  const isRTL = line.pts[0].x > 0.5;
+  ctx.fillText(`usr ${line.id}`, hpx + (isRTL ? -50 : 7), hpy - 4);
+}
+
+// ── Hero path — portrait: enters top, drifts toward bottom-right DZ, bends away ──
+function heroPath(phase) {
+  const w = W(), h = H();
+  const waypoints = [
+    { x: w*0.20,  y: -20       },  // enters top
+    { x: w*0.24,  y: h*0.15    },
+    { x: w*0.32,  y: h*0.32    },
+    { x: w*0.46,  y: h*0.50    },
+    { x: w*0.56,  y: h*0.60    },  // drifting toward DZ
+    { x: w*0.60,  y: h*0.63    },  // closest approach — stops here, well before DZ core
+    { x: w*0.48,  y: h*0.72    },  // intervention bends it left
+    { x: w*0.30,  y: h*0.84    },  // curves safely away
+    { x: w*0.18,  y: h + 20    },  // exits bottom safely
+  ];
+  const segs   = waypoints.length - 1;
+  const segLen = 1 / segs;
+  const seg    = Math.min(segs-1, Math.floor(phase/segLen));
+  const t      = (phase - seg*segLen) / segLen;
+  const a      = waypoints[seg];
+  const b      = waypoints[seg+1];
+  const s      = t*t*(3-2*t);
+  return { x: a.x+(b.x-a.x)*s, y: a.y+(b.y-a.y)*s };
+}
+
+function drawHero(ctx, phase) {
+  const tail = 0.20, steps = 60;
+  let alpha = 1;
+  if (phase < 0.05) alpha = phase/0.05;
+  if (phase > 0.91) alpha = (1-phase)/0.09;
+
+  let r = 100, g = 175, b = 255;
+  if (phase > 0.38 && phase < 0.62) {
+    const t = (phase-0.38)/0.24;
+    r=100+(245-100)*t; g=175+(158-175)*t; b=255+(11-255)*t;
+  } else if (phase >= 0.62) {
+    const t = Math.min(1,(phase-0.62)/0.14);
+    r=245+(63-245)*t; g=158+(185-158)*t; b=11+(80-11)*t;
+  }
+  const ri=Math.round(r), gi=Math.round(g), bi=Math.round(b);
+
+  ctx.beginPath();
+  let first = true;
+  for (let i = 0; i <= steps; i++) {
+    const s = Math.max(0,phase-tail)+(phase-Math.max(0,phase-tail))*(i/steps);
+    const {x,y} = heroPath(s);
+    if (first) { ctx.moveTo(x,y); first=false; } else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = `rgba(${ri},${gi},${bi},${0.95*alpha})`;
+  ctx.lineWidth = 2.8;
+  ctx.shadowColor = `rgba(${ri},${gi},${bi},0.8)`;
+  ctx.shadowBlur  = 18;
+  ctx.stroke();
+  ctx.lineWidth = 1.2; ctx.shadowBlur = 30; ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  const {x, y} = heroPath(phase);
+  const grd = ctx.createRadialGradient(x,y,0,x,y,14);
+  grd.addColorStop(0,   `rgba(${ri},${gi},${bi},${1.0*alpha})`);
+  grd.addColorStop(0.4, `rgba(${ri},${gi},${bi},${0.6*alpha})`);
+  grd.addColorStop(1,   `rgba(${ri},${gi},${bi},0)`);
+  ctx.beginPath(); ctx.arc(x,y,14,0,Math.PI*2); ctx.fillStyle=grd; ctx.fill();
+  ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2);
+  ctx.fillStyle=`rgba(255,255,255,${0.9*alpha})`; ctx.fill();
+
+  if (alpha > 0.1) {
+    ctx.font = '9px JetBrains Mono, monospace';
+    ctx.fillStyle = `rgba(${ri},${gi},${bi},${0.75*alpha})`;
+    ctx.fillText('usr #0847', x+12, y-12);
+    if (phase > 0.33 && phase < 0.87) {
+      let score = phase < 0.68
+        ? Math.round(8 + (phase-0.33)/0.35*60)
+        : Math.round(Math.max(8, 68-(phase-0.68)/0.19*45));
+      ctx.fillStyle = `rgba(${ri},${gi},${bi},${0.65*alpha})`;
+      ctx.fillText(`risk ${score}%`, x+12, y+1);
+    }
+  }
+}
+
+function updateLabels(phase) {
+  const ahead = heroPath(Math.min(phase+0.04,1));
+  if (phase > 0.54 && phase < 0.74) {
+    lblIntervention.style.left = (ahead.x-10)+'px';
+    lblIntervention.style.top  = (ahead.y-28)+'px';
+    lblIntervention.classList.add('visible');
+  } else { lblIntervention.classList.remove('visible'); }
+
+  if (phase > 0.71 && phase < 0.93) {
+    lblSafe.style.left = (ahead.x-10)+'px';
+    lblSafe.style.top  = (ahead.y-28)+'px';
+    lblSafe.classList.add('visible');
+  } else { lblSafe.classList.remove('visible'); }
+}
+
+function drawGrid(ctx) {
+  const w=W(), h=H();
+  ctx.strokeStyle='rgba(255,255,255,0.016)';
+  ctx.lineWidth=1;
+  for (let x=0; x<w; x+=50) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,h); ctx.stroke(); }
+  for (let y=0; y<h; y+=50) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+}
+
+function frame(ts) {
+  if (!startTime) startTime = ts;
+  const elapsed = ts-startTime;
+  const phase   = (elapsed%LOOP)/LOOP;
+  ctx.clearRect(0,0,W(),H());
+  ctx.fillStyle='#080a0e'; ctx.fillRect(0,0,W(),H());
+  drawGrid(ctx);
+  drawDangerZone(ctx, elapsed, phase);
+  lines.forEach(l => drawAmbientLine(ctx, l, elapsed));
+  drawHero(ctx, phase);
+  updateLabels(phase);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

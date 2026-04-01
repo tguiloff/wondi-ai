@@ -418,7 +418,45 @@
     .cards-grid .card:nth-child(2) { transition-delay: 0.1s; }
     .cards-grid .card:nth-child(3) { transition-delay: 0.2s; }
 
+    /* ── Visualization embeds ── */
+    .viz-embed {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #0e0f12;
+    }
+
+    .viz-iframe {
+      width: 100%;
+      border: none;
+      display: block;
+    }
+
+    .viz-hero {
+      height: 560px;
+    }
+
+    .viz-trajectory {
+      height: 520px;
+    }
+
+    .viz-desktop-only { display: block; }
+    .viz-mobile-only { display: none; }
+
     /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .viz-desktop-only { display: none; }
+      .viz-mobile-only { display: block; }
+
+      .viz-hero {
+        height: 480px;
+      }
+
+      .viz-trajectory {
+        height: 720px;
+      }
+    }
+
     @media (max-width: 768px) {
       .nav-links {
         position: fixed;
@@ -538,6 +576,9 @@
         <p class="hero-sub">Wondi is a clinician validated API, that provides a trajectory based mental health risk scoring for AI companion platforms, built for millions of conversations.</p>
         <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
       </div>
+      <div class="viz-embed fade-up" style="margin-top: 60px;">
+        <iframe src="./viz/visualization.html" class="viz-iframe viz-hero" loading="lazy" title="Wondi Product Visualization"></iframe>
+      </div>
     </div>
   </section>
 
@@ -575,6 +616,10 @@
         <span class="section-label">Early Detection</span>
         <h2 class="section-heading">Risk scores that read where the conversation is going.</h2>
         <p class="section-subheading">Wondi tracks conversation trajectories in real time. Not single messages. Not keywords. The full arc. So you intervene before someone reaches the danger zone.</p>
+      </div>
+      <div class="viz-embed fade-up" style="margin-bottom: 48px;">
+        <iframe src="./viz/trajectory-desktop.html" class="viz-iframe viz-trajectory viz-desktop-only" loading="lazy" title="Wondi Trajectory Detection"></iframe>
+        <iframe src="./viz/trajectory-mobile.html" class="viz-iframe viz-trajectory viz-mobile-only" loading="lazy" title="Wondi Trajectory Detection Mobile"></iframe>
       </div>
       <div class="cards-grid">
         <div class="card fade-up">
