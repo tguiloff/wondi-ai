@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wondi.ai — Mental Health Safety for AI</title>
-  <meta name="description" content="The mental health safety layer for every AI talking to a teenager." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wondi | Clinician-Validated Mental Health Risk Scoring for AI Platforms</title>
+  <meta name="description" content="Wondi is a clinician-validated API that provides trajectory-based mental health risk scoring for AI companion platforms, built for millions of conversations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    @font-face {
-      font-family: 'SFT Schrifted Sans';
-      src: url('./fonts/SFT-Schrifted-Sans.ttf') format('truetype');
-      font-weight: 100 900;
-      font-style: normal;
-      font-display: swap;
-    }
-
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -27,201 +17,683 @@
 
     :root {
       --cyber-blue: #4A53FF;
+      --cyber-blue-hover: #3840e6;
       --white: #FFFFFF;
       --night-black: #0A0A0A;
       --golden-hour: #E9C461;
+      --light-bg: #FAFAFA;
+      --border-color: #E5E7EB;
+      --text-secondary: #6B7280;
+      --nav-height: 72px;
     }
 
-    html, body {
-      height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      background-color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--night-black);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background: var(--white);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── Nav ── */
-    nav {
-      padding: 36px 48px;
+    /* ── Navigation ── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
     }
 
-    .logo {
+    .nav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
       font-family: 'SFT Schrifted Sans', 'Inter', sans-serif;
-      font-size: 30px;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--cyber-blue);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--night-black);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyber-blue);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--cyber-blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--cyber-blue-hover);
+      box-shadow: 0 4px 20px rgba(74, 83, 255, 0.3);
+    }
+
+    .btn-nav {
+      padding: 10px 22px;
+      font-size: 14px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--night-black);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-alt {
+      background: var(--light-bg);
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 13px;
       font-weight: 500;
       color: var(--cyber-blue);
-      letter-spacing: -0.3px;
-      user-select: none;
+      background: rgba(74, 83, 255, 0.08);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .section-heading {
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+
+    .section-subheading {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .section-center {
+      text-align: center;
+    }
+
+    .section-center .section-heading,
+    .section-center .section-subheading {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* ── Hero ── */
     .hero {
-      flex: 1;
+      position: relative;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 24px 100px;
-    }
-
-    /* Coming Soon pill */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(74, 83, 255, 0.07);
-      border: 1px solid rgba(74, 83, 255, 0.2);
-      color: var(--cyber-blue);
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 7px 16px;
-      border-radius: 100px;
-      margin-bottom: 52px;
-    }
-
-    .badge-dot {
-      width: 5px;
-      height: 5px;
-      background: var(--cyber-blue);
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.35; }
-    }
-
-    /* Headline */
-    h1 {
-      font-family: 'SFT Schrifted Sans', 'Inter', sans-serif;
-      font-size: clamp(38px, 6.5vw, 76px);
-      font-weight: 500;
-      line-height: 1.08;
-      letter-spacing: -1.5px;
-      color: var(--night-black);
-      max-width: 820px;
-    }
-
-    h1 em {
-      font-style: normal;
-      color: var(--cyber-blue);
-    }
-
-    /* Subtext */
-    .sub {
-      margin-top: 28px;
-      font-size: clamp(15px, 1.6vw, 18px);
-      font-weight: 400;
-      line-height: 1.65;
-      color: rgba(10, 10, 10, 0.45);
-      max-width: 480px;
-    }
-
-    /* ── Footer ── */
-    footer {
-      padding: 28px 48px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(10, 10, 10, 0.25);
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── Grid background ── */
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      padding-top: var(--nav-height);
       overflow: hidden;
+      background: var(--night-black);
     }
 
-    .grid-plane {
-      position: absolute;
-      width: 220%;
-      height: 130%;
-      left: -60%;
-      top: 28%;
-      background-image:
-        linear-gradient(rgba(74, 83, 255, 0.14) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(74, 83, 255, 0.14) 1px, transparent 1px);
-      background-size: 56px 56px;
-      transform: perspective(480px) rotateX(68deg);
-      transform-origin: top center;
-      -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, black 10%, transparent 100%);
-      mask-image: radial-gradient(ellipse 75% 70% at 50% 0%, black 10%, transparent 100%);
-    }
-
-    /* Vanishing-point glow */
-    .grid-glow {
-      position: absolute;
-      width: 700px;
-      height: 400px;
-      left: 50%;
-      top: 26%;
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse at center top, rgba(74, 83, 255, 0.07) 0%, transparent 65%);
-    }
-
-    /* White vignette — keeps text readable */
-    .grid-vignette {
+    .hero-grid {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 42%, rgba(255,255,255,1) 25%, rgba(255,255,255,0.55) 60%, transparent 100%);
+      overflow: hidden;
+      perspective: 400px;
     }
 
-    nav, .hero, footer {
+    .hero-grid-plane {
+      position: absolute;
+      bottom: -20%;
+      left: -20%;
+      right: -20%;
+      height: 80%;
+      transform: rotateX(55deg);
+      background-image:
+        linear-gradient(rgba(74, 83, 255, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 83, 255, 0.25) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 80%);
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(74, 83, 255, 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero .container {
       position: relative;
       z-index: 1;
     }
 
+    .hero-content {
+      max-width: 800px;
+      padding: 80px 0;
+    }
+
+    .hero-heading {
+      font-size: 56px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 19px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 620px;
+      margin-bottom: 40px;
+    }
+
+    /* ── Cards grid ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .section-alt .card {
+      background: var(--white);
+    }
+
+    /* ── Stat cards ── */
+    .stat-card {
+      text-align: center;
+      padding: 40px 28px;
+    }
+
+    .stat-value {
+      font-size: 48px;
+      font-weight: 600;
+      color: var(--cyber-blue);
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .stat-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── Feature cards ── */
+    .feature-card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--night-black);
+    }
+
+    .feature-card-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ── Regulation cards ── */
+    .reg-card-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cyber-blue);
+      background: rgba(74, 83, 255, 0.08);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .reg-card-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--night-black);
+    }
+
+    .reg-card-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cyber-blue);
+      margin-bottom: 12px;
+    }
+
+    .reg-card-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      background: var(--night-black);
+      color: var(--white);
+      text-align: center;
+      padding: 100px 0;
+    }
+
+    .cta-section .section-heading {
+      color: var(--white);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-section .section-subheading {
+      color: rgba(255, 255, 255, 0.6);
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 40px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* ── Scroll animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .cards-grid .card:nth-child(1) { transition-delay: 0s; }
+    .cards-grid .card:nth-child(2) { transition-delay: 0.1s; }
+    .cards-grid .card:nth-child(3) { transition-delay: 0.2s; }
+
     /* ── Responsive ── */
-    @media (max-width: 600px) {
-      nav { padding: 28px 24px; }
-      .hero { padding: 40px 20px 80px; }
-      h1 { letter-spacing: -0.8px; }
-      footer { padding: 24px; }
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--border-color);
+        transform: translateY(-120%);
+        transition: transform 0.3s ease;
+        z-index: 999;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .hero-heading {
+        font-size: 36px;
+      }
+
+      .hero-sub {
+        font-size: 17px;
+      }
+
+      .hero-content {
+        padding: 60px 0;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .section-heading {
+        font-size: 30px;
+      }
+
+      .section-subheading {
+        font-size: 16px;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .stat-value {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .section-heading {
+        font-size: 36px;
+      }
+
+      .hero-heading {
+        font-size: 44px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background grid -->
-  <div class="grid-bg" aria-hidden="true">
-    <div class="grid-plane"></div>
-    <div class="grid-glow"></div>
-    <div class="grid-vignette"></div>
-  </div>
-
-  <nav>
-    <div class="logo">wondi</div>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">wondi</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#clinical-validation">Clinical Validation</a></li>
+        <li><a href="#early-detection">Early Detection</a></li>
+        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary btn-nav">Book a Demo</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </nav>
 
+  <!-- Hero -->
   <section class="hero">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Coming Soon
+    <div class="hero-grid">
+      <div class="hero-grid-plane"></div>
     </div>
-
-    <h1>The mental health safety layer for every <em>AI</em> talking to a teenager</h1>
-
-    <p class="sub">Wondi.ai protects the mental wellbeing of young users — built for every platform powered by AI.</p>
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-content fade-up">
+        <h1 class="hero-heading">Detect mental health risk in AI&nbsp;Chatbots before it becomes a&nbsp;crisis.</h1>
+        <p class="hero-sub">Wondi is a clinician validated API, that provides a trajectory based mental health risk scoring for AI companion platforms, built for millions of conversations.</p>
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+      </div>
+    </div>
   </section>
 
-  <footer>© 2026 Wondi.ai · All rights reserved</footer>
+  <!-- Clinical Validation -->
+  <section class="section" id="clinical-validation">
+    <div class="container section-center">
+      <div class="fade-up">
+        <span class="section-label">Clinician Validated</span>
+        <h2 class="section-heading">Built on real clinical science. By real clinicians.</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card stat-card fade-up">
+          <div class="stat-value">99%</div>
+          <div class="stat-desc">Clinical Classification Accuracy</div>
+        </div>
+        <div class="card stat-card fade-up">
+          <div class="stat-value">5 Years</div>
+          <div class="stat-desc">MIT Longitudinal Mental Health Research</div>
+        </div>
+        <div class="card stat-card fade-up">
+          <div class="stat-value">Psychiatrist Led</div>
+          <div class="stat-desc">Clinical Methodology Built By Mental Health Experts</div>
+        </div>
+      </div>
+      <div class="fade-up" style="margin-top: 48px;">
+        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+      </div>
+    </div>
+  </section>
 
+  <!-- Early Detection -->
+  <section class="section section-alt" id="early-detection">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-label">Early Detection</span>
+        <h2 class="section-heading">Risk scores that read where the conversation is going.</h2>
+        <p class="section-subheading">Wondi tracks conversation trajectories in real time. Not single messages. Not keywords. The full arc. So you intervene before someone reaches the danger zone.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-up">
+          <div class="feature-card-title">Trajectory Scoring</div>
+          <div class="feature-card-text">Risk updates continuously as the conversation evolves.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="feature-card-title">Early Intervention</div>
+          <div class="feature-card-text">Redirect conversations before they reach the danger zone.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="feature-card-title">Full Audit Log</div>
+          <div class="feature-card-text">Every signal scored, timestamped and documented.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compliance -->
+  <section class="section" id="compliance">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-label">Compliance Ready</span>
+        <h2 class="section-heading">The law is already here. Wondi keeps you ahead of it.</h2>
+        <p class="section-subheading">California SB 243 is live. 11 more states are following. Wondi gives you the evidence based protocols regulators require and the audit trail to prove it.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-up">
+          <div class="reg-card-tag">California SB 243</div>
+          <div class="reg-card-title">AAIDEN Act</div>
+          <div class="reg-card-subtitle">Live January 1, 2026</div>
+          <div class="reg-card-text">Requires evidence based mental health crisis protocols for AI companion platforms.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="reg-card-tag">New York Article 47</div>
+          <div class="reg-card-title">S.3008</div>
+          <div class="reg-card-subtitle">Live November 5, 2025</div>
+          <div class="reg-card-text">Mandates crisis identification protocols and disclosures every 3 hours for AI companions.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="reg-card-tag">Illinois WOPR Act</div>
+          <div class="reg-card-title">HB 1806</div>
+          <div class="reg-card-subtitle">Signed August 2025</div>
+          <div class="reg-card-text">Unanimously passed. AI cannot independently deliver mental health care without licensed professional oversight.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it Works -->
+  <section class="section section-alt" id="about">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-heading">We read linguistic patterns. Not personal data.</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-up">
+          <div class="feature-card-title">Privacy by design</div>
+          <div class="feature-card-text">No user IDs, no personal information, no sensitive data sent anywhere. Wondi analyzes linguistic patterns in the conversation text only. Data processing agreement included as standard.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="feature-card-title">Minimal lift to get live</div>
+          <div class="feature-card-text">A single API call per conversation. A risk score comes back in milliseconds. No changes to your existing infrastructure, no new systems to maintain.</div>
+        </div>
+        <div class="card fade-up">
+          <div class="feature-card-title">You stay in control</div>
+          <div class="feature-card-text">Set your own thresholds. Decide what happens with the score. Wondi gives you the signal. What your platform does with it is entirely up to you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="cta-section">
+    <div class="container fade-up">
+      <h2 class="section-heading">Get in touch</h2>
+      <p class="section-subheading">Your platform is talking to people in distress right now. Find out what Wondi sees in your conversations.</p>
+      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Wondi.ai &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Scroll fade-in with IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
