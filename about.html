@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wondi | Clinician-Validated Mental Health Risk Scoring for AI Platforms</title>
-  <meta name="description" content="Wondi is a clinician-validated API that provides trajectory-based mental health risk scoring for AI companion platforms, built for millions of conversations.">
+  <title>About | Wondi</title>
+  <meta name="description" content="Meet the MIT team behind Wondi — built from personal experience with mental illness and a conviction that early detection saves lives.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -178,7 +178,6 @@
       color: var(--text-secondary);
     }
 
-    /* Two-column section header */
     .section-header-two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -215,7 +214,6 @@
       line-height: 1.08;
       letter-spacing: -0.035em;
       color: var(--black);
-      margin-bottom: 32px;
     }
 
     .hero-sub {
@@ -226,31 +224,39 @@
       padding-top: 12px;
     }
 
-    .hero-viz-block {
+    /* ── Image / placeholder blocks ── */
+    .img-block {
       width: 100%;
       border-radius: 20px;
       overflow: hidden;
       background: var(--warm-gray);
     }
 
-    /* ── Viz embeds ── */
-    .viz-embed {
+    .img-block img {
       width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--warm-gray);
-    }
-
-    .viz-iframe {
-      width: 100%;
-      border: none;
+      height: auto;
       display: block;
     }
 
-    .viz-hero { height: 560px; }
-    .viz-trajectory { height: 520px; }
-    .viz-desktop-only { display: block; }
-    .viz-mobile-only { display: none; }
+    .img-placeholder {
+      width: 100%;
+      border-radius: 20px;
+      background: var(--warm-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #B0B0A8;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .about-hero-img {
+      height: 400px;
+    }
+
+    .about-crisis-img {
+      height: 360px;
+    }
 
     /* ── Stats row ── */
     .stats-row {
@@ -274,108 +280,169 @@
       line-height: 1.1;
     }
 
+    .stat-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
     .stat-desc {
       font-size: 15px;
       color: var(--text-secondary);
       line-height: 1.5;
     }
 
-    /* ── Cards grid ── */
-    .cards-grid {
+    /* ── AI Chatbots statement ── */
+    .statement-section {
+      padding: 100px 0;
+    }
+
+    .statement-heading {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    .statement-desc {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 800px;
+    }
+
+    /* ── Founder cards ── */
+    .founders-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       margin-top: 48px;
     }
 
-    .card {
-      background: var(--warm-gray);
+    .founder-card {
+      background: var(--white);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 32px;
+      overflow: hidden;
       transition: transform 0.3s;
     }
 
-    .card:hover {
+    .founder-card:hover {
       transform: translateY(-2px);
     }
 
-    .card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--border-color);
-      border-radius: 12px;
+    .founder-photo {
+      width: 100%;
+      height: 280px;
+      background: var(--warm-gray);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 24px;
+      color: #B0B0A8;
+      font-size: 14px;
+      font-weight: 500;
     }
 
-    .card-icon svg {
-      width: 24px;
-      height: 24px;
-      color: var(--black);
+    .founder-info {
+      padding: 24px;
     }
 
-    .card-title {
-      font-size: 18px;
+    .founder-name {
+      font-size: 17px;
       font-weight: 600;
-      margin-bottom: 10px;
       color: var(--black);
+      margin-bottom: 4px;
     }
 
-    .card-text {
-      font-size: 15px;
-      line-height: 1.7;
+    .founder-title {
+      font-size: 14px;
       color: var(--text-secondary);
+      margin-bottom: 16px;
     }
 
-    .card-subtitle {
+    .founder-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .founder-badge {
+      display: inline-block;
+      padding: 6px 16px;
       font-size: 13px;
-      font-weight: 600;
-      color: var(--gold);
-      margin-bottom: 12px;
+      font-weight: 500;
+      color: var(--black);
+      border: 1px solid var(--border-color);
+      border-radius: 100px;
     }
 
-    /* ── Image block ── */
-    .img-block {
-      width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--warm-gray);
-    }
-
-    .img-block img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* ── About two-col ── */
-    .about-grid {
+    /* ── Extended team ── */
+    .extended-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
     }
 
-    .about-text-stack {
+    .ext-member {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .ext-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--warm-gray);
+      flex-shrink: 0;
+    }
+
+    .ext-info {
       display: flex;
       flex-direction: column;
-      gap: 36px;
-      padding-top: 8px;
+      gap: 4px;
     }
 
-    .about-text-block h3 {
-      font-size: 18px;
+    .ext-name {
+      font-size: 15px;
       font-weight: 600;
       color: var(--black);
-      margin-bottom: 8px;
     }
 
-    .about-text-block p {
-      font-size: 15px;
-      line-height: 1.7;
+    .ext-role {
+      font-size: 14px;
+      line-height: 1.5;
       color: var(--text-secondary);
+    }
+
+    .ext-subtitle {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ── Science card ── */
+    .science-card {
+      background: var(--warm-gray);
+      border-radius: 20px;
+      padding: 48px;
+      margin-top: 40px;
+    }
+
+    .science-card p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .science-card p:last-child {
+      margin-bottom: 0;
     }
 
     /* ── CTA Section ── */
@@ -455,15 +522,6 @@
       opacity: 0.7;
     }
 
-    /* ── Clinical section full-width paragraph ── */
-    .clinical-paragraph {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      max-width: 900px;
-      margin-top: 20px;
-    }
-
     /* ── Scroll animations ── */
     .fade-up {
       opacity: 0;
@@ -476,17 +534,12 @@
       transform: translateY(0);
     }
 
-    .cards-grid .card:nth-child(1) { transition-delay: 0s; }
-    .cards-grid .card:nth-child(2) { transition-delay: 0.1s; }
-    .cards-grid .card:nth-child(3) { transition-delay: 0.2s; }
+    .founders-grid .founder-card:nth-child(1) { transition-delay: 0s; }
+    .founders-grid .founder-card:nth-child(2) { transition-delay: 0.1s; }
+    .founders-grid .founder-card:nth-child(3) { transition-delay: 0.2s; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
-      .viz-desktop-only { display: none; }
-      .viz-mobile-only { display: block; }
-      .viz-hero { height: 480px; }
-      .viz-trajectory { height: 720px; }
-
       .nav-wrapper {
         padding: 0 16px;
         top: 12px;
@@ -570,11 +623,6 @@
         padding-top: 0;
       }
 
-      .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
       .stats-row {
         grid-template-columns: 1fr;
         gap: 32px;
@@ -584,9 +632,18 @@
         font-size: 40px;
       }
 
-      .about-grid {
+      .founders-grid {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 24px;
+      }
+
+      .extended-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .science-card {
+        padding: 28px;
       }
 
       .cta-two-col {
@@ -614,14 +671,13 @@
       .cta-section {
         padding: 80px 0;
       }
+
+      .statement-section {
+        padding: 60px 0;
+      }
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
-      .cards-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-      }
-
       .section-heading {
         font-size: 36px;
       }
@@ -637,6 +693,16 @@
       .section-header-two-col {
         gap: 32px;
       }
+
+      .founders-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+
+      .extended-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
     }
   </style>
 </head>
@@ -645,11 +711,11 @@
   <!-- Navigation -->
   <div class="nav-wrapper">
     <nav class="nav">
-      <a href="#" class="nav-logo">wondi</a>
+      <a href="./index.html" class="nav-logo">wondi</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#clinician-validated">Clinical Validation</a></li>
-        <li><a href="#early-detection">Early Detection</a></li>
-        <li><a href="#compliance">Compliance</a></li>
+        <li><a href="./index.html#clinician-validated">Clinical Validation</a></li>
+        <li><a href="./index.html#early-detection">Early Detection</a></li>
+        <li><a href="./index.html#compliance">Compliance</a></li>
         <li><a href="./about.html">About</a></li>
         <li><a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary btn-nav">Book a Demo</a></li>
       </ul>
@@ -661,206 +727,189 @@
     </nav>
   </div>
 
-  <!-- Hero -->
+  <!-- Section 1: Hero -->
   <section class="hero">
     <div class="container">
       <div class="hero-two-col fade-up">
         <div>
-          <h1 class="hero-heading">Detect mental health risk in AI&nbsp;Chatbots before it becomes a&nbsp;crisis.</h1>
-          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+          <h1 class="hero-heading">Built from pain. Guided by&nbsp;science.</h1>
         </div>
         <div>
-          <p class="hero-sub">Wondi is a clinician validated API, that provides a trajectory based mental health risk scoring for AI companion platforms, built for millions of conversations.</p>
+          <p class="hero-sub">Wondi was born from its founders' personal experience with mental illness and a conviction that early detection can dramatically reduce the severity and escalation of mental health challenges.</p>
         </div>
       </div>
-      <div class="viz-embed fade-up">
-        <iframe src="./viz/visualization.html" class="viz-iframe viz-hero" loading="lazy" title="Wondi Product Visualization"></iframe>
+      <div class="img-placeholder about-hero-img fade-up">
+        Team illustration
       </div>
     </div>
   </section>
 
-  <!-- Clinician Validated -->
-  <section class="section" id="clinician-validated">
+  <!-- Section 2: The Bigger Problem -->
+  <section class="section">
     <div class="container">
       <div class="fade-up">
-        <span class="section-label">Clinician Validated</span>
-        <h2 class="section-heading">Built on real clinical science. By real clinicians.</h2>
-        <p class="clinical-paragraph">5 years of MIT longitudinal research. Peer reviewed methodology. A psychiatrist on the founding team. Wondi is the only mental health risk tool for AI conversations built from clinical ground up.</p>
+        <span class="section-label">The Bigger Problem</span>
+        <h2 class="section-heading" style="margin-bottom: 20px;">The mental health crisis is accelerating</h2>
+        <p class="section-desc" style="max-width: 700px;">Mental health struggles often go unnoticed. On average, it takes 11 years from first symptoms to receiving care (JAMA Psychiatry).</p>
+      </div>
+      <div class="stats-row fade-up">
+        <div class="stat-item">
+          <div class="stat-value">2nd</div>
+          <div class="stat-label">Leading Cause of Death</div>
+          <div class="stat-desc">Suicide among Americans aged 10-34 (CDC, 2023)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">20%</div>
+          <div class="stat-label">High school students</div>
+          <div class="stat-desc">Seriously consider suicide in the U.S. (CDC, 2023)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">2x</div>
+          <div class="stat-label">Self-harm cases</div>
+          <div class="stat-desc">Projected to double by 2040 (Frontiers in Psychiatry)</div>
+        </div>
+      </div>
+      <div class="img-placeholder about-crisis-img fade-up">
+        Crisis data illustration
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: AI Chatbots Statement -->
+  <section class="statement-section">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="statement-heading">Billions of people use AI Chatbots Weekly. Emotional support is the leading use case of it</h2>
+        <p class="statement-desc">For the first time in history, we have a real-time signal that can detect mental health risk before it becomes a tragedy. This is an unprecedented opportunity to save lives at scale.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: The Team -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header-two-col fade-up">
+        <div>
+          <span class="section-label">The Team</span>
+          <h2 class="section-heading">An MIT mission driven team at the intersection of ai, science and market execution</h2>
+        </div>
+        <div>
+          <p class="section-desc" style="padding-top: 28px;">We combine complementary deep expertise in ML/AI, clinical psychiatry, and go-to-market</p>
+        </div>
+      </div>
+      <div class="founders-grid fade-up">
+        <!-- Gun Ahn -->
+        <div class="founder-card">
+          <div class="founder-photo">Photo placeholder</div>
+          <div class="founder-info">
+            <div class="founder-name">Gun Ahn</div>
+            <div class="founder-title">Co-Founder · MIT PhD Candidate '26</div>
+            <p class="founder-desc">5+ years developing ML/AI models for predicting suicide and personalized mental health treatment plans. The research foundation Wondi is built on is Gun's life's work. Lived experience with depression.</p>
+            <span class="founder-badge">AI / Research Lead</span>
+          </div>
+        </div>
+        <!-- Tomas Guiloff -->
+        <div class="founder-card">
+          <div class="founder-photo">Photo placeholder</div>
+          <div class="founder-info">
+            <div class="founder-name">Tomas Guiloff</div>
+            <div class="founder-title">Co-Founder · MIT MBA '26</div>
+            <p class="founder-desc">Second-time founder with deep expertise in corporate sales and go-to-market strategy. Motivated by personal experience with anxiety and the conviction that mental health is essential for individuals to thrive and reach their full potential.</p>
+            <span class="founder-badge">Sales & Strategy Lead</span>
+          </div>
+        </div>
+        <!-- MD. Jungjin Kim -->
+        <div class="founder-card">
+          <div class="founder-photo">Photo placeholder</div>
+          <div class="founder-info">
+            <div class="founder-name">MD. Jungjin Kim</div>
+            <div class="founder-title">Co-Founder · MIT EMBA '27</div>
+            <p class="founder-desc">Psychiatrist with 10+ years clinical practice specialized in high-risk patients and forensic psychiatry. Medical Director at McLean Hospital and Harvard faculty. Brings the clinical backbone that makes Wondi evidence-based, not just data-driven.</p>
+            <span class="founder-badge">Clinical Lead</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Extended Team -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-heading" style="margin-bottom: 0;">Extended Team</h2>
+      </div>
+      <div class="extended-grid fade-up">
+        <div class="ext-member">
+          <div class="ext-avatar"></div>
+          <div class="ext-info">
+            <div class="ext-name">Shreyas Krishnan</div>
+            <div class="ext-role">Building The Core Detection And Scoring Infrastructure.</div>
+            <div class="ext-subtitle">Harvard · AI Software Engineer</div>
+          </div>
+        </div>
+        <div class="ext-member">
+          <div class="ext-avatar"></div>
+          <div class="ext-info">
+            <div class="ext-name">Laurie Wang</div>
+            <div class="ext-role">ML Systems And API Development For Real-Time Conversation Analysis.</div>
+            <div class="ext-subtitle">MIT · AI Software Engineer</div>
+          </div>
+        </div>
+        <div class="ext-member">
+          <div class="ext-avatar"></div>
+          <div class="ext-info">
+            <div class="ext-name">Jesus Avendano</div>
+            <div class="ext-role">Designing The Developer Experience And Platform Interfaces.</div>
+            <div class="ext-subtitle">Product Designer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: The Science -->
+  <section class="section">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-label">The science</span>
+        <h2 class="section-heading" style="margin-bottom: 0;">5 years of longitudinal MIT research, now a product</h2>
+      </div>
+      <div class="science-card fade-up">
+        <p>Wondi's detection engine is built on Gun Ahn's doctoral research at MIT, conducted under Professor John Gabrieli — one of the world's leading neuroscientists. The original model predicted suicidal risk from clinical and longitudinal outcome data across thousands of subjects.</p>
+        <p>The foundation is now expanding beyond suicide into self-harm and broader mental health risks — adapted for the real-world environment where millions of people are already talking: AI conversation platforms.</p>
+        <p>In our latest validation using Reddit posting data labeled by three independent clinicians, our model using Claude Opus feature extraction plus SVM classification achieved 99.33% accuracy in distinguishing safe from at-risk conversations.</p>
       </div>
       <div class="stats-row fade-up">
         <div class="stat-item">
           <div class="stat-value">99%</div>
-          <div class="stat-desc">Clinical Classification Accuracy</div>
+          <div class="stat-label">Classification accuracy</div>
+          <div class="stat-desc">Safe vs. at-risk conversations on Reddit data, labeled by 3 independent clinicians.</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">5 Years</div>
-          <div class="stat-desc">MIT Longitudinal Mental Health Research</div>
+          <div class="stat-value">92%</div>
+          <div class="stat-label">Validation AUC</div>
+          <div class="stat-desc">Area under the ROC curve on held-out clinical validation set.</div>
         </div>
         <div class="stat-item">
-          <div class="stat-value">Psychiatrist Led</div>
-          <div class="stat-desc">Clinical Methodology Built By Mental Health Experts</div>
-        </div>
-      </div>
-      <div class="fade-up">
-        <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Early Detection -->
-  <section class="section" id="early-detection">
-    <div class="container">
-      <div class="section-header-two-col fade-up">
-        <div>
-          <span class="section-label">Early Detection</span>
-          <h2 class="section-heading">Risk scores that read where the conversation is going.</h2>
-        </div>
-        <div>
-          <p class="section-desc" style="padding-top: 28px;">Wondi tracks conversation trajectories in real time. Not single messages. Not keywords. The full arc. So you intervene before someone reaches the danger zone.</p>
-        </div>
-      </div>
-      <div class="viz-embed fade-up" style="margin-bottom: 48px;">
-        <iframe src="./viz/trajectory-desktop.html" class="viz-iframe viz-trajectory viz-desktop-only" loading="lazy" title="Wondi Trajectory Detection"></iframe>
-        <iframe src="./viz/trajectory-mobile.html" class="viz-iframe viz-trajectory viz-mobile-only" loading="lazy" title="Wondi Trajectory Detection Mobile"></iframe>
-      </div>
-      <div class="cards-grid fade-up">
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="12" width="4" height="9"></rect>
-              <rect x="10" y="7" width="4" height="14"></rect>
-              <rect x="17" y="3" width="4" height="18"></rect>
-            </svg>
-          </div>
-          <div class="card-title">Trajectory Scoring</div>
-          <div class="card-text">Risk updates continuously as the conversation evolves.</div>
-        </div>
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-          </div>
-          <div class="card-title">Early Intervention</div>
-          <div class="card-text">Redirect conversations before they reach the danger zone.</div>
-        </div>
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-            </svg>
-          </div>
-          <div class="card-title">Full Audit Log</div>
-          <div class="card-text">Every signal scored, timestamped and documented.</div>
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Validation sensitivity</div>
+          <div class="stat-desc">Zero false negatives on validation set.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Compliance -->
-  <section class="section" id="compliance">
-    <div class="container">
-      <div class="section-header-two-col fade-up">
-        <div>
-          <span class="section-label">Compliance Ready</span>
-          <h2 class="section-heading">The law is already here. Wondi keeps you ahead of it.</h2>
-        </div>
-        <div>
-          <p class="section-desc" style="padding-top: 28px;">California SB 243 is live. 11 more states are following. Wondi gives you the evidence based protocols regulators require and the audit trail to prove it.</p>
-        </div>
-      </div>
-      <div class="img-block fade-up" style="margin-bottom: 48px;">
-        <img src="./img/compliance.png" alt="Compliance overview" loading="lazy">
-      </div>
-      <div class="cards-grid fade-up">
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3l-8 4.5v9L12 21l8-4.5v-9L12 3z"></path>
-              <path d="M12 12L4 7.5"></path>
-              <path d="M12 12l8-4.5"></path>
-              <path d="M12 12v9"></path>
-            </svg>
-          </div>
-          <div class="card-title">California SB 243</div>
-          <div class="card-subtitle">AAIDEN Act | Live January 1, 2026</div>
-          <div class="card-text">Requires evidence based mental health crisis protocols for AI companion platforms.</div>
-        </div>
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="10" width="18" height="11" rx="2"></rect>
-              <path d="M7 10V7a5 5 0 0 1 10 0v3"></path>
-              <path d="M8 21V10"></path>
-              <path d="M16 21V10"></path>
-              <path d="M12 21V10"></path>
-              <line x1="3" y1="14" x2="21" y2="14"></line>
-            </svg>
-          </div>
-          <div class="card-title">New York Article 47</div>
-          <div class="card-subtitle">S.3008 | Live November 5, 2025</div>
-          <div class="card-text">Mandates crisis identification protocols and disclosures every 3 hours for AI companions.</div>
-        </div>
-        <div class="card">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-            </svg>
-          </div>
-          <div class="card-title">Illinois WOPR Act</div>
-          <div class="card-subtitle">HB 1806 | Signed August 2025</div>
-          <div class="card-text">Unanimously passed. AI cannot independently deliver mental health care without licensed professional oversight.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How it Works / About -->
-  <section class="section" id="how-it-works">
-    <div class="container">
-      <div class="section-header-two-col fade-up">
-        <div>
-          <span class="section-label">How it works</span>
-          <h2 class="section-heading">We read linguistic patterns. Not personal data.</h2>
-        </div>
-        <div>
-          <p class="section-desc" style="padding-top: 28px;">One API call per conversation. Nothing stored. Nothing retained.</p>
-        </div>
-      </div>
-      <div class="about-grid fade-up">
-        <div class="img-block">
-          <img src="./img/about.png" alt="How Wondi works" loading="lazy">
-        </div>
-        <div class="about-text-stack">
-          <div class="about-text-block">
-            <h3>Privacy by design</h3>
-            <p>No user IDs, no personal information, no sensitive data sent anywhere. Wondi analyzes linguistic patterns in the conversation text only. Data processing agreement included as standard.</p>
-          </div>
-          <div class="about-text-block">
-            <h3>Minimal lift to get live.</h3>
-            <p>A single API call per conversation. A risk score comes back in milliseconds. No changes to your existing infrastructure, no new systems to maintain.</p>
-          </div>
-          <div class="about-text-block">
-            <h3>You stay in control.</h3>
-            <p>Set your own thresholds. Decide what happens with the score. Wondi gives you the signal. What your platform does with it is entirely up to you.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Get in Touch / CTA -->
+  <!-- Section 7: Our Mission / CTA -->
   <section class="cta-section">
     <div class="container">
       <div class="cta-two-col fade-up">
         <div>
-          <span class="section-label">Get in touch</span>
-          <h2 class="section-heading" style="margin-bottom: 32px;">Your platform is talking to people in distress right now.</h2>
-          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Book a Demo</a>
+          <span class="section-label">Our mission</span>
+          <h2 class="section-heading" style="margin-bottom: 32px;">"To build The global mental health infrastructure for AI chatbots"</h2>
+          <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0anszS07zTq77eYdQT3EI5E59_auSoDdbh37qGEaOrrjbJu3DiVRgS5P2pHUMs-b6tNqOeC0WR" target="_blank" class="btn btn-primary">Request a Demo</a>
         </div>
         <div>
-          <p class="cta-right">Find out what Wondi sees in your conversations.</p>
+          <p class="cta-right">We're building the safety infrastructure that makes the AI economy worthy of the trust people place in it.</p>
         </div>
       </div>
     </div>
@@ -875,10 +924,10 @@
         </div>
         <div>
           <ul class="footer-links">
-            <li><a href="#clinician-validated">Clinician Validated</a></li>
-            <li><a href="#early-detection">Early Detection</a></li>
-            <li><a href="#compliance">Compliance Ready</a></li>
-            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="./index.html#clinician-validated">Clinical Validation</a></li>
+            <li><a href="./index.html#early-detection">Early Detection</a></li>
+            <li><a href="./index.html#compliance">Compliance</a></li>
+            <li><a href="./about.html">About</a></li>
           </ul>
         </div>
         <div class="footer-cta">
