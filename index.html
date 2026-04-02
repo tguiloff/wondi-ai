@@ -69,13 +69,16 @@
     }
 
     .nav-logo {
-      font-family: 'Inter', sans-serif;
-      font-size: 22px;
-      font-weight: 500;
-      color: var(--black);
       text-decoration: none;
-      letter-spacing: -0.5px;
       margin-right: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo img {
+      height: 22px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -651,7 +654,7 @@
   <!-- Navigation -->
   <div class="nav-wrapper">
     <nav class="nav">
-      <a href="#" class="nav-logo">wondi</a>
+      <a href="#" class="nav-logo"><img src="img/wondi-logo.png" alt="wondi"></a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#clinician-validated">Clinical Validation</a></li>
         <li><a href="#early-detection">Early Detection</a></li>
