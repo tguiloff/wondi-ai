@@ -250,6 +250,9 @@
       width: 100%;
       border: none;
       display: block;
+      overflow: hidden;
+      touch-action: none;
+      pointer-events: none;
     }
 
     .viz-hero { height: 560px; }
@@ -683,8 +686,8 @@
         </div>
       </div>
       <div class="viz-embed fade-up">
-        <iframe src="./viz/visualization.html" class="viz-iframe viz-hero viz-desktop-only" loading="lazy" title="Wondi Product Visualization"></iframe>
-        <iframe src="./viz/visualization-mobile.html" class="viz-iframe viz-hero viz-mobile-only" loading="lazy" title="Wondi Product Visualization Mobile"></iframe>
+        <iframe src="./viz/visualization.html" class="viz-iframe viz-hero viz-desktop-only" loading="lazy" scrolling="no" title="Wondi Product Visualization"></iframe>
+        <iframe src="./viz/visualization-mobile.html" class="viz-iframe viz-hero viz-mobile-only" loading="lazy" scrolling="no" title="Wondi Product Visualization Mobile"></iframe>
       </div>
     </div>
   </section>
@@ -730,8 +733,8 @@
         </div>
       </div>
       <div class="viz-embed fade-up" style="margin-bottom: 48px;">
-        <iframe src="./viz/trajectory-desktop.html" class="viz-iframe viz-trajectory viz-desktop-only" loading="lazy" title="Wondi Trajectory Detection"></iframe>
-        <iframe src="./viz/trajectory-mobile.html" class="viz-iframe viz-trajectory viz-mobile-only" loading="lazy" title="Wondi Trajectory Detection Mobile"></iframe>
+        <iframe src="./viz/trajectory-desktop.html" class="viz-iframe viz-trajectory viz-desktop-only" loading="lazy" scrolling="no" title="Wondi Trajectory Detection"></iframe>
+        <iframe src="./viz/trajectory-mobile.html" class="viz-iframe viz-trajectory viz-mobile-only" loading="lazy" scrolling="no" title="Wondi Trajectory Detection Mobile"></iframe>
       </div>
       <div class="cards-grid fade-up">
         <div class="card">
