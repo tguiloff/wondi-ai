@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    @font-face {
+      font-family: 'SFT Schrifted Sans';
+      src: url('fonts/SFT-Schrifted-Sans.ttf') format('truetype');
+      font-weight: 400 700;
+      font-display: swap;
+    }
+
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -166,7 +173,8 @@
     }
 
     .section-heading {
-      font-size: clamp(32px, 4vw, 48px);
+      font-family: 'SFT Schrifted Sans', 'Inter', sans-serif;
+      font-size: 38px;
       font-weight: 500;
       line-height: 1.15;
       letter-spacing: -0.03em;
@@ -183,16 +191,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      align-items: start;
+      align-items: center;
       margin-bottom: 60px;
-    }
-
-    .section-header-two-col .section-heading {
-      margin-top: 8px;
-    }
-
-    .section-header-two-col .section-desc {
-      padding-top: 28px;
     }
 
     /* ── Hero ── */
@@ -205,12 +205,13 @@
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 60px;
-      align-items: start;
+      align-items: center;
       margin-bottom: 60px;
     }
 
     .hero-heading {
-      font-size: clamp(40px, 5vw, 64px);
+      font-family: 'SFT Schrifted Sans', 'Inter', sans-serif;
+      font-size: 38px;
       font-weight: 500;
       line-height: 1.08;
       letter-spacing: -0.035em;
@@ -464,7 +465,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      align-items: start;
+      align-items: center;
     }
 
     .cta-right {
@@ -607,7 +608,7 @@
       }
 
       .hero-heading {
-        font-size: clamp(32px, 8vw, 48px);
+        font-size: clamp(28px, 8vw, 38px);
       }
 
       .hero-sub {
@@ -619,7 +620,7 @@
       }
 
       .section-heading {
-        font-size: clamp(26px, 5vw, 36px);
+        font-size: clamp(26px, 5vw, 38px);
       }
 
       .section-header-two-col {
@@ -688,11 +689,11 @@
 
     @media (max-width: 1024px) and (min-width: 769px) {
       .section-heading {
-        font-size: 36px;
+        font-size: 38px;
       }
 
       .hero-heading {
-        font-size: 44px;
+        font-size: 38px;
       }
 
       .hero-two-col {
