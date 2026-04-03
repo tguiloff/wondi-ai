@@ -35,9 +35,10 @@
   }
   .msg {
     flex-shrink: 0; display: flex; flex-direction: column; gap: 1px;
-    opacity: 0; transform: translateY(5px); transition: opacity 0.35s ease, transform 0.35s ease;
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.35s ease;
   }
-  .msg.visible { opacity: 1; transform: translateY(0); }
+  .msg.visible { max-height: 200px; opacity: 1; }
   .msg-label { font-size: 9px; font-weight: 500; color: var(--chat-meta); padding: 0 4px; }
   .msg-bubble { padding: 7px 11px; border-radius: 11px; font-size: 12px; line-height: 1.5; color: var(--chat-text); max-width: 92%; }
   .msg.user .msg-bubble { background: #fff; border: 1px solid var(--chat-border); border-radius: 11px 11px 11px 3px; align-self: flex-start; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
