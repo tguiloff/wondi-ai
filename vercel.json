@@ -1,5 +1,8 @@
 {
   "framework": null,
   "buildCommand": "",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    { "source": "/", "destination": "/ai-detection", "permanent": true }
+  ]
 }
